@@ -9,6 +9,8 @@ import {
 } from "../controllers/post.controller.js";
 import { protectRoute } from "../middleware/auth.middleware.js";
 import upload from "../middleware/upload.middleware.js";
+import Notification from "../models/notification.model.js";
+import Comment from "../models/comment.model.js";
 
 const router = express.Router();
 
