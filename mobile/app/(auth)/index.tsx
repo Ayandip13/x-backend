@@ -6,14 +6,44 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StyleSheet,
+  Dimensions,
 } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 
+const { width } = Dimensions.get("window"); // screen width
+const circleSize = width * 2; // large enough to cover full width
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <View className="flex-1 bg-white">
-      <View className="flex-1 px-10 justify-between">
+    <View style={{ flex: 1 }}>
+      {/* Background Gradient */}
+      <LinearGradient
+        colors={["#e9fdff", "#ffffff", "#e9fdff"]}
+        style={StyleSheet.absoluteFill}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+      />
+
+      {/* Rounded top glow */}
+      <LinearGradient
+        colors={["#bdf8ff", "transparent"]}
+        style={styles.topGlow}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+      />
+
+      {/* Rounded bottom glow */}
+      <LinearGradient
+        colors={["transparent", "#bdf8ff"]}
+        style={styles.bottomGlow}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+      />
+
+      {/* Content */}
+      <View className="flex-1 px-10 justify-between mt-20">
         <View className="flex-col gap-0">
           <View className="items-center">
             <Image
@@ -36,7 +66,10 @@ export default function App() {
                 // setIsLoading((prev) => !prev);
               }}
               // disabled={isLoading}
-              style={{ backgroundColor: "#E6F4FE " }}
+              style={{
+                backgroundColor: "#ffffff",
+                elevation: 2,
+              }}
             >
               <View>
                 {isLoading ? (
@@ -60,3 +93,26 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  topGlow: {
+    position: "absolute",
+    top: -circleSize / 1.5,
+    alignSelf: "center",
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize / 2,
+    overflow: "hidden",
+    opacity: 0.5,
+  },
+  bottomGlow: {
+    position: "absolute",
+    bottom: -circleSize / 1.5,
+    alignSelf: "center",
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize / 2,
+    overflow: "hidden",
+    opacity: 0.5,
+  },
+});

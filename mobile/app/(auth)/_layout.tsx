@@ -5,8 +5,15 @@ export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth();
 
   if (isSignedIn) {
-    return <Redirect href={"/index"} />;
+    return <Redirect href={"/(auth)"} />;
   }
 
-  return <Stack screenOptions={{ headerTitleAlign: "center" }} />;
+  return (
+    <Stack
+      screenOptions={{
+        // headerTitleAlign: "center",
+        headerShown: false,
+      }}
+    />
+  );
 }
